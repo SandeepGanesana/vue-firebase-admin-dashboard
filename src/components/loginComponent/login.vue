@@ -4,22 +4,26 @@
       <div class="flipper">
         <div class="front">
           <!-- front content -->
-          <div class="holder">
-            <h1 class="heading">piluku</h1>
-            <input class="form-control" type="text" placeholder="Username" v-model="userName" />
-            <input type="password" class="form-control" placeholder="Password" v-model="password" />
-            <div class="bottom_info">
-              <a
-                href="#"
-                class="pull-right"
-                data-toggle="modal"
-                data-target="#forgot"
-              >forgot password?</a>
-              <a class="pull-left">Register new account</a>
+          <form @submit.prevent="loginUser()">
+            <div class="holder">
+              <h1 class="heading">piluku</h1>
+              <input class="form-control" type="text" placeholder="Username" v-model="userName"
+              v-on:keyup.enter="loginUser()" />
+              <input type="password" class="form-control" placeholder="Password" v-model="password"
+              v-on:keyup.enter="loginUser()" />
+              <div class="bottom_info">
+                <a
+                  href="#"
+                  class="pull-right"
+                  data-toggle="modal"
+                  data-target="#forgot"
+                >forgot password?</a>
+                <a class="pull-left">Register new account</a>
+              </div>
+              <div class="clearfix"></div>
+              <a class="btn btn-primary btn-block" v-on:click="loginUser()">Sign in</a>
             </div>
-            <div class="clearfix"></div>
-            <a class="btn btn-primary btn-block" v-on:click="loginUser()">Sign in</a>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -67,14 +71,16 @@ export default {
     data() {
         return { 
             userName: '',
-            password: ''
+            password: '',
+            errors: []
         }
     },
     methods: {
         loginUser() {
-            console.log('User ' + this.userName, this.password);
+          
             if (this.userName === 'admin' && this.password === '123456') {
                 console.log('User Valid !');
+                this.$router.push('/dashboard')
             }
         }
     }
